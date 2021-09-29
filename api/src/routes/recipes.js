@@ -3,7 +3,7 @@ const router = Router();
 const axios = require('axios');
 const {getAllRecipes, getQueryApiInfo} = require('../controllers/getRecipes')
 const{Recipe,TypeDiet} = require('../db')
-const api_key = '59decad62f064e9baec31b2f82e72077'
+const api_key = '22c14afa09054692aca0e95100023b9f'
 
 
 router.get('/', async (req,res) => {
