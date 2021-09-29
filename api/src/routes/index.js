@@ -15,52 +15,49 @@ const types = require('./types');
 const {getTypes} = require('../controllers/diets')
 router.use('/recipes', recipes)
 router.use('/types', types)
+const {getDBInfo} =require('../controllers/getRecipes')
+
+router.post('/recipes', async (req,res,next) => {
+    let {
+        title,
+        summary,
+        spoonacularScore,
+        healthScore,
+        analyzedInstructions,
+        createdInDb,
+        typeDiet
+    } = req.body;
+    if(!title || !summary) {
+        return res.status(400).send('Please, insert a title and a summary to continue!');
+    }
+    console.log(title);
+try{let createRecipe = await Recipe.create({
+       // id,     
+        title,
+        summary,
+        spoonacularScore ,
+        healthScore,
+        analyzedInstructions,
+       // typeDiet,
+        createdInDb
+})
+let dietTypeDb = await TypeDiet.findAll({ where:{ name:typeDiet } })
+    createRecipe.addTypeDiet(dietTypeDb)
+    res.status(200).send('receta creada')   
+
+}catch(e){
+    next(e)
+}
+});
 
 
-// router.get('/types', async (req,res) => {
-//     const typefromApi = await axios.get('https://api.spoonacular.com/recipes/complexSearch?apiKey=2d0fafd47b274178b7100d9793925962&number=100&addRecipeInformation=true')
-//     const type = typefromApi.data.results.map(e => e.diets)
-//     // console.log(type);
-//     const typeEach = type.map(e => {
-//         for(let i=0 ; i<e.length;i++) return e[i]
-//         // console.log(typeEach);
-//     })
-//     typeEach.filter(e => e !== undefined)
-//     console.log(typeEach);
-//         typeEach.forEach(e => {
-//             TypeDiet.findOrCreate({
-//                 where: {name:e}
-//             })
-//         })
-//          const allTheTypes = await TypeDiet.findAll();
-//         res.send(allTheTypes.map(e => e.name))
-// })
-
-// router.post('/recipes', async (req,res) => {
-//     let {
-//         name,
-//         summary,
-//         spoonacularScore,
-//         healthScore,
-//         analyzedInstructions,
-//        // typeDiet,
-//         createdInDb
-//     } = req.body
-// let createRecipe = Recipe.bullkreate({
-//         name,
-//         summary,
-//         spoonacularScore,
-//         healthScore,
-//         analyzedInstructions,
-//         createdInDb
-// })
-// // let dietTypeDb = await TypeDiet.findAll({
-// //     where:{name:typeDiet}
-// // })
-// // createRecipe.addTypeDiet(dietTypeDb)
-//  res.send('receta creada')
-
-
-// })
-
+/*
+router.get('/bdedatos',async (req,res) =>{
+const infoRBd= await getDBInfo()
+const type = await TypeDiet.findAll()             esto es para chequear que se me haya cargado bien la info 
+console.log(type);                                              en la base de datos
+try {res.status(200).send(infoRBd)}
+catch(e){res.send(e)}
+})
+*/
 module.exports = router;
