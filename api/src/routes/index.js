@@ -1,21 +1,63 @@
 var express = require('express');
 const { Router } = require('express');
-// Importar todos los routers;
-// Ejemplo: const authRouter = require('./auth.js');
- const axios = require('axios');
- const{Recipe,TypeDiet} = require('../db')
-//const{Recipe} = require('../models/Recipe')
-//const{TypeDiet} = require('../models/TypeDiet')
+const axios = require('axios');
+const{Recipe,TypeDiet} = require('../db')
 const router = Router();
-//router.use(express.json());
 const recipes = require('./recipes');
 const types = require('./types');
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 const {getTypes} = require('../controllers/diets')
+const api_key = '59decad62f064e9baec31b2f82e72077'
 router.use('/recipes', recipes)
 router.use('/types', types)
-const {getDBInfo} =require('../controllers/getRecipes')
+const {getDBInfo,getAllRecipes} =require('../controllers/getRecipes')
+// router.get('/recipes', async (req,res) => {
+//     const name = req.query.name
+//     const info = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${api_key}&titleMatch=${name}&&addRecipeInformation=true&number=100`)
+//     const infoNoMatch = await getAllRecipes()
+//     console.log(infoNoMatch);
+    
+//     if(name){
+//     if(info.data.results.length===0){res.status(200).send('name not found')}
+//     const apiInfo = await info.data.results.map(e =>{
+//         return {
+//             id: e.id, 
+//             name: e.title,
+//             img: e.image,
+//             typeDiet: e.diets.map((d)=> {return{name:d}}), // un array con los tipos de dieta de esa receta
+//             spoonacularScore : e.spoonacularScore,   // puntuacion
+//             dishTypes: e.dishTypes.map((d)=> {return{name:d}}), // tipo de plato
+//             summary: e.summary,            // un resumen del plato
+//             healthScore: e.healthScore,    // que tan saludable es
+//             analyzedInstructions: e.analyzedInstructions// el paso a paso de como se hace 
+//            }
+           
+//     })
+//      console.log(apiInfo)
+//    return res.send(apiInfo)
+// }else {
+//     res.status(200).json(infoNoMatch)
+//  }
+// })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 router.post('/recipes', async (req,res,next) => {
     let {
@@ -60,4 +102,9 @@ try {res.status(200).send(infoRBd)}
 catch(e){res.send(e)}
 })
 */
+
+
+
+
+
 module.exports = router;
