@@ -3,12 +3,12 @@ const axios= require('axios');
 const{Recipe,TypeDiet} = require('../db')
 
 const getApiInfo = async () => {
-    const apiUrl = await axios.get('https://api.spoonacular.com/recipes/complexSearch?apiKey=22c14afa09054692aca0e95100023b9f&number=100&addRecipeInformation=true')
+    const apiUrl = await axios.get('https://api.spoonacular.com/recipes/complexSearch?apiKey=2d0fafd47b274178b7100d9793925962&number=100&addRecipeInformation=true')
     //console.log(apiUrl);
      const apiInfo = await apiUrl.data.results.map(e =>{
          return {
              id: e.id, 
-             name: e.title,
+             title: e.title,
              img: e.image,
              typeDiet: e.diets.map((d)=> {return{name:d}}), // un array con los tipos de dieta de esa receta
              spoonacularScore : e.spoonacularScore,   // puntuacion

@@ -3,21 +3,21 @@ const router = Router();
 const axios = require('axios');
 const {getAllRecipes, getQueryApiInfo} = require('../controllers/getRecipes')
 const{Recipe,TypeDiet} = require('../db')
-const api_key = '22c14afa09054692aca0e95100023b9f'
+const api_key = '2d0fafd47b274178b7100d9793925962'
 
 
 router.get('/', async (req,res) => {
   const name = req.query.name
-  const info = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${api_key}&titleMatch=${name}&&addRecipeInformation=true&number=100`)
+  const info = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${api_key}&&titleMatch=${name}&&addRecipeInformation=true&number=100`)
   const infoNoMatch = await getAllRecipes()
-  console.log(infoNoMatch);
+  // console.log(infoNoMatch);
   
   if(name){
   if(info.data.results.length===0){res.status(200).send('name not found')}
   const apiInfo = await info.data.results.map(e =>{
       return {
           id: e.id, 
-          name: e.title,
+          title: e.title,
           img: e.image,
           typeDiet: e.diets.map((d)=> {return{name:d}}), // un array con los tipos de dieta de esa receta
           spoonacularScore : e.spoonacularScore,   // puntuacion
@@ -43,7 +43,7 @@ router.get('/:id',async (req,res) =>{
 
     if (validate) {
       try {
-        let dbId = await Recipe.findByPk(id, { include: TypeDiet });
+        let dbId = await Recipe.findByPk(id, { include: TypeDiet });  // entonce la busco directo de la base de datos
         res.status(200).json([dbId]);
       } catch (err) {
         console.log(err);
