@@ -1,5 +1,6 @@
 import axios from 'axios';
 const GET_RECIPES = 'GET_RECIPES';
+const FILTER_BY_TYPEDIET = 'FILTER_BY_TYPEDIET';
 
 
 export function getRecipes(){
@@ -12,15 +13,9 @@ export function getRecipes(){
      }
 }
 
-// export function getRecipes() {
-
-//     return async function (dispatch) {
-//         return axios.get(`http://localhost:3001/recipes`)
-//             .then((response) => {
-//                 dispatch([{
-//                     type: GET_RECIPES,
-//                     payload: response.data
-//                 }])
-//             })
-//     }
-// }
+export function filterRecipesByTypeDiet (payload){
+    return {
+        type : FILTER_BY_TYPEDIET,
+        payload
+    }
+}
