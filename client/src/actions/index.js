@@ -6,6 +6,7 @@ const ORDER_BY_NAME = 'ORDER_BY_NAME';
 const ORDER_BY_PUNTUATION = 'ORDER_BY_PUNTUATION';
 const GET_BY_NAME = 'GET_BY_NAME';
 const GET_BY_ID = 'GET_BY_ID';
+const  GET_TYPE_DIETS = 'GET_TYPE_DIETS';
 
 export function getRecipes(){
      return async function(dispatch){
@@ -59,10 +60,31 @@ export function getRecipesByName (name){
 export function getRecipesById (id){
     
     return async function(dispatch){
-        var json = await axios.get(`http://localhost:3001/${id}`);
+        var json = await axios.get(`http://localhost:3001/recipes/${id}`);
     return dispatch( {
         type : GET_BY_ID,
         payload: json.data
     })
 }
+}
+
+export function getTypeDiets (){
+    
+    return async function(dispatch){
+        var json = await axios.get(`http://localhost:3001/types`);
+         console.log(json.data);
+        return dispatch( {
+            type : GET_TYPE_DIETS,
+            payload: json.data
+        })
+
+    }
+}
+
+export function postRecipes (payload){
+    return async function(dispatch){
+        var json = await axios.post(`http://localhost:3001/recipe`,payload);
+        return json
+    }
+
 }

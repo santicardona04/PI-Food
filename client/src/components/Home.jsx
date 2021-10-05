@@ -33,7 +33,7 @@ useEffect(() => {
 
 function handleOnClick(e){
 e.preventDefault();
-dispatch(getRecipes)
+dispatch(getRecipes())   // con este handle, hago que me traiga devuelta todas las recetas,sin ningun filtro
 }
 
 function handleFilterTypeDiet (e) {
@@ -66,7 +66,7 @@ function handleInputName (e){
 
 return (
     <div>
-        <Link to = '/recipe'> Create Recipe </Link>
+        <Link to = '/recipe'> <button>Create Recipe </button></Link>
 
         <button onClick = {e => handleOnClick(e)}> Refresh Recipes</button>
 

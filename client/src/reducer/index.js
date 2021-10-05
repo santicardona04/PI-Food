@@ -3,8 +3,10 @@
 export const initialState = {
     recipes: [],
     allRecipes : [],
-    details : []
+    details : [],
+    typediets :[]
 }
+console.log('esto es el estado type diets',initialState.typediets);
 
 function rootReducer (state=initialState, action) {
     switch(action.type) {
@@ -94,6 +96,20 @@ function rootReducer (state=initialState, action) {
                 ...state,
                 details: action.payload
             }
+
+        case 'POST_RECIPE':
+                return{
+                    ...state,
+                }
+        
+        
+        case 'GET_TYPE_DIETS':
+            // console.log('action.payload',action.payload);
+            return {
+                ...state,
+                typediets : action.payload
+            }        
+            
         default:
             return state;
     }
