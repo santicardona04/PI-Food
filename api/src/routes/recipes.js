@@ -1,39 +1,42 @@
 const { Router } = require('express');
 const router = Router();
 const axios = require('axios');
-const {getAllRecipes, getQueryApiInfo} = require('../controllers/getRecipes')
+const {getAllRecipes, getQueryApiInfo,getAallRecipes} = require('../controllers/getRecipes')
 const{Recipe,TypeDiet} = require('../db')
 const api_key = '2d0fafd47b274178b7100d9793925962'
 
 
-router.get('/', async (req,res) => {
-  const name = req.query.name
-  const info = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${api_key}&&titleMatch=${name}&&addRecipeInformation=true&number=100`)
-  const infoNoMatch = await getAllRecipes()
-  // console.log(infoNoMatch);
+router.get('/',
+ getAallRecipes
+// async (req,res) => {
+//   const name = req.query.name
+//   const info = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${api_key}&&titleMatch=${name}&&addRecipeInformation=true&number=100`)
+//   const infoNoMatch = await getAllRecipes()
+//   // console.log(infoNoMatch);
   
-  if(name){
-  if(info.data.results.length===0){res.status(200).send('name not found')}
-  const apiInfo = await info.data.results.map(e =>{
-      return {
-          id: e.id, 
-          title: e.title,
-          img: e.image,
-          typeDiet: e.diets.map((d)=> {return{name:d}}), // un array con los tipos de dieta de esa receta
-          spoonacularScore : e.spoonacularScore,   // puntuacion
-          dishTypes: e.dishTypes.map((d)=> {return{name:d}}), // tipo de plato
-          summary: e.summary,            // un resumen del plato
-          healthScore: e.healthScore,    // que tan saludable es
-          analyzedInstructions: e.analyzedInstructions// el paso a paso de como se hace 
-         }
+//   if(name){
+//   if(info.data.results.length===0){res.status(200).send('name not found')}
+//   const apiInfo = await info.data.results.map(e =>{
+//       return {
+//           id: e.id, 
+//           title: e.title,
+//           img: e.image,
+//           typeDiets: e.diets.map((d)=> {return{name:d}}), // un array con los tipos de dieta de esa receta
+//           spoonacularScore : e.spoonacularScore,   // puntuacion
+//           dishTypes: e.dishTypes.map((d)=> {return{name:d}}), // tipo de plato
+//           summary: e.summary,            // un resumen del plato
+//           healthScore: e.healthScore,    // que tan saludable es
+//           analyzedInstructions: e.analyzedInstructions// el paso a paso de como se hace 
+//          }
          
-  })
-   console.log(apiInfo)
- return res.send(apiInfo)
-}else {
-  res.status(200).json(infoNoMatch)
-}
-})
+//   })
+//    console.log(apiInfo)
+//  return res.send(apiInfo)
+// }else {
+//   res.status(200).json(infoNoMatch)
+// }
+// }
+)
 
 router.get('/:id',async (req,res) =>{
     const {id} = req.params

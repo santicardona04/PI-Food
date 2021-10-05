@@ -10,7 +10,7 @@ router.post('/', async (req,res,next) => {
         healthScore,
         analyzedInstructions,
         createdInDb,
-        typeDiet
+        typeDiets
     } = req.body;
     if(!title || !summary) {
         return res.status(400).send('Please, insert a title and a summary to continue!');
@@ -26,7 +26,7 @@ try{let createRecipe = await Recipe.create({
        // typeDiet,
         createdInDb
 })
-let dietTypeDb = await TypeDiet.findAll({ where:{ name:typeDiet } })
+let dietTypeDb = await TypeDiet.findAll({ where:{ name:typeDiets } })
     createRecipe.addTypeDiet(dietTypeDb)
     res.status(200).send('receta creada')   
 

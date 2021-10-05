@@ -1,5 +1,9 @@
+// import Details from "../components/Details";
+
 export const initialState = {
-    recipes: []
+    recipes: [],
+    allRecipes : [],
+    details : []
 }
 
 function rootReducer (state=initialState, action) {
@@ -7,18 +11,88 @@ function rootReducer (state=initialState, action) {
         case 'GET_RECIPES':
             return {
                 ...state,
-                recipes: action.payload
+                recipes: action.payload,
+                allRecipes: action.payload,
+                
             }
 
         case 'FILTER_BY_TYPEDIET':
-        const allRec = state.recipes
+        const allRec = state.allRecipes
+        console.log(allRec);
+        // allRec.map(e => {
+        //    if (e.createdInDb){
+        const typeDietFilter = action.payload === 'All' ? allRec : allRec.filter(t => t.typeDiets.find(e =>  e.name  === action.payload ) )   
+        console.log(action.payload);
         
-        const typeDietFilter = action.payload === 'All' ? allRec : allRec.filter(t => t.typeDiet.map(e =>  e.name ) === action.payload )    
-        console.log();
         return{
                 ...state ,
                 recipes : typeDietFilter
 
+        }
+    // }})
+        case 'ORDER_BY_NAME' :
+            let order = action.payload === 'asc' ? 
+            state.recipes.sort(function(a,b) {
+                if(a.title > b.title) {
+                    return 1
+                }
+                if( b.title > a.title){
+                    return -1
+                }
+                return 0
+            }) : 
+            state.recipes.sort(function(a,b) {
+                if(a.title > b.title) {
+                    return -1
+                }
+                if( b.title > a.title){
+                    return 1
+                }
+                return 0
+            })
+            return{
+                ...state ,
+                recipes : order
+
+        }
+
+        case 'ORDER_BY_PUNTUATION' : 
+        let orderpunt = action.payload === 'menormayor' ? 
+            state.recipes.sort(function(a,b) {
+                if(a.spoonacularScore > b.spoonacularScore) {
+                    return 1
+                }
+                if( b.spoonacularScore > a.spoonacularScore){
+                    return -1
+                }
+                return 0
+            }) : 
+            state.recipes.sort(function(a,b) {
+                if(a.spoonacularScore > b.spoonacularScore) {
+                    return -1
+                }
+                if( b.spoonacularScore > a.spoonacularScore){
+                    return 1
+                }
+                return 0
+            })
+            return{
+                ...state ,
+                recipes : orderpunt
+
+        }
+
+        case 'GET_BY_NAME':
+            return {
+                ...state,
+                recipes: action.payload,
+                      
+            }
+
+        case 'GET_BY_ID':
+            return{
+                ...state,
+                details: action.payload
             }
         default:
             return state;

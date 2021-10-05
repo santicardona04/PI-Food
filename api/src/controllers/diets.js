@@ -1,7 +1,7 @@
 
-let diets = [{name: 'Gluten Free'},{name: 'Ketogenic'},{name: 'Vegetarian'},{name: 'Lacto-Vegetarian'},
-	{name: 'Ovo-Vegetarian'},{name: 'Vegan'},{name: 'Pescatarian'},{name: 'Paleolithic'},{name: 'Primal'},
-	{name: 'Whole 30'}];
+let diets = [{name: 'gluten free'},{name: 'ketogenic'},{name: 'vegetarian'},{name: 'lacto-vegetarian'},
+	{name: 'lacto ovo vegetarian'},{name: 'vegan'},{name: 'pescatarian'},{name: 'paleolithic'},{name: 'primal'},
+	{name: 'whole 30'}];
 module.exports = { 
     diets  
 };
