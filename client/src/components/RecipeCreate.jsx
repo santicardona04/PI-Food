@@ -3,11 +3,21 @@ import { Link } from "react-router-dom";
 import {getTypeDiets , postRecipes} from '../actions/index';
 import { useDispatch, useSelector } from "react-redux";
 
+function controlForm (input){
+    let errors = {}
+    if(!input.title) errors.title= 'please put the title of the recipe'
+    if(!input.summary) errors.summary= 'please put the summary of the recipe'
+    if(input.spoonacularScore<0 || input.spoonacularScore>100) errors.spoonacularScore='put a puntuation between 0-100'
+    if(input.healthScore<0 || input.healthScore>100) errors.healthScore='put a healthScore between 0-100'
+    return errors
+}
+
+
 export default function CreateRecipe() {
     const dispatch = useDispatch()
     let listDiets = useSelector((state) => state.typediets )
     console.log('esto es diet',listDiets);
-    
+    const [errors,setErrors]=useState({})      // este estado local es para, las validaciones(del formulario controlado)
     const [input,setInput] = useState({
         title :'',
         summary:'',
@@ -25,6 +35,10 @@ export default function CreateRecipe() {
             ...input,
     [e.target.name] : e.target.value
 })
+        setErrors(controlForm({
+            ...input,
+            [e.target.name] : e.target.value    // me copio todo lo que venga del formulario , en el caso de que en alguno
+        }))                               // no cumpla con las validaciones, se va a poner un texto advirtiendo
 }
 function handleSelect(e){
     setInput({
@@ -45,7 +59,12 @@ function handleSubmit(e){
         typeDiets:[]
     })
 }
-
+function handleDelete(e){
+    setInput({
+        ...input,
+        typeDiets: input.typeDiets.filter(diet => diet !== e )
+    }) //este es para borrar algun tipe diet que haya elegido, va a creat un nuevo array con todos los que no sean
+}//    el elemento que le hice click
 
     return (
         <div>
@@ -60,6 +79,9 @@ function handleSubmit(e){
                     value={input.title}
                     onChange={(e) => {handleChange(e)}}
                     />
+                    { errors.title && (
+                        <p>{errors.title}</p>
+                    ) }
                 </div>
                 <div>
                     <label>summary:</label>
@@ -69,6 +91,9 @@ function handleSubmit(e){
                     value={input.summary}
                     onChange={(e) => {handleChange(e)}} 
                     />
+                    { errors.summary && (
+                        <p>{errors.summary}</p>
+                    ) }
                 </div>
                 <div>
                     <label>puntuation:</label>
@@ -78,6 +103,9 @@ function handleSubmit(e){
                     value={input.spoonacularScore}
                     onChange={(e) => {handleChange(e)}} 
                     />
+                    { errors.spoonacularScore && (
+                        <p>{errors.spoonacularScore}</p>
+                    ) }
                 </div>
                 <div>
                     <label>healthScore:</label>
@@ -87,6 +115,9 @@ function handleSubmit(e){
                     value={input.healthScore}
                     onChange={(e) => {handleChange(e)}} 
                     />
+                     { errors.healthScore && (
+                        <p>{errors.healthScore}</p>
+                    ) }
                 </div>
                 <div>
                     <label>step by step:</label>
@@ -105,8 +136,18 @@ function handleSubmit(e){
                     })}
                     
                 </select >
-                <button type='submit' > Create Recipe</button>
+                {errors.hasOwnProperty('title') || errors.hasOwnProperty('summary') || errors.hasOwnProperty('spoonacularScore') || errors.hasOwnProperty('healthScore')?  <p> please complete all the inputs to create your recipe</p> : <button type='submit' > Create Recipe</button>  }
+               
             </form>
+            {input.typeDiets.map(e => {
+               return(
+               <div>
+                  
+                    <h5>{e}</h5>
+                    <button onClick={() => handleDelete(e)}>X</button>
+                   
+                </div>
+            )})}
         </div>
     )
 
