@@ -13,7 +13,7 @@ function rootReducer (state=initialState, action) {
         case 'GET_RECIPES':
             return {
                 ...state,
-                recipes: action.payload,
+                recipes: action.payload, 
                 allRecipes: action.payload,
                 
             }
@@ -35,19 +35,21 @@ function rootReducer (state=initialState, action) {
         case 'ORDER_BY_NAME' :
             let order = action.payload === 'asc' ? 
             state.recipes.sort(function(a,b) {
-                if(a.title > b.title) {
+                
+                if(a.title.toLowerCase() > b.title.toLowerCase()) {
+                  
                     return 1
                 }
-                if( b.title > a.title){
+                if( b.title.toLowerCase() > a.title.toLowerCase()){
                     return -1
                 }
                 return 0
             }) : 
             state.recipes.sort(function(a,b) {
-                if(a.title > b.title) {
+                if(a.title.toLowerCase() > b.title.toLowerCase()) {
                     return -1
                 }
-                if( b.title > a.title){
+                if( b.title.toLowerCase() > a.title.toLowerCase()){
                     return 1
                 }
                 return 0

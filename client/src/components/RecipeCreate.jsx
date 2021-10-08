@@ -4,11 +4,12 @@ import {getTypeDiets , postRecipes} from '../actions/index';
 import { useDispatch, useSelector } from "react-redux";
 
 function controlForm (input){
+    const reg = new RegExp('^[0-9]+$');
     let errors = {}
     if(!input.title) errors.title= 'please put the title of the recipe'
     if(!input.summary) errors.summary= 'please put the summary of the recipe'
-    if(input.spoonacularScore<0 || input.spoonacularScore>100) errors.spoonacularScore='put a puntuation between 0-100'
-    if(input.healthScore<0 || input.healthScore>100) errors.healthScore='put a healthScore between 0-100'
+    if(input.spoonacularScore<0 || input.spoonacularScore>100 || !reg.test(input.spoonacularScore)) errors.spoonacularScore='put a puntuation between 0-100'
+    if(input.healthScore<0 || input.healthScore>100 || !reg.test(input.healthScore)) errors.healthScore='put a healthScore between 0-100'
     return errors
 }
 
@@ -49,7 +50,7 @@ function handleSelect(e){
 function handleSubmit(e){
     e.preventDefault();
     dispatch(postRecipes(input))
-    alert('recipe created!')
+    alert('Congratulations you created a new recipe!')
     setInput({
         title :'',
         summary:'',

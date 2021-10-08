@@ -1,0 +1,16 @@
+.bkg{
+    background-image: url('../icons/home-background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    
+}
+.cards{
+    display: inline;
+    align-items:center;
+    padding: 15px;
+}

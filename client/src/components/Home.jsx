@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { getRecipes , filterRecipesByTypeDiet , orderByName , orderByPuntuation,getRecipesByName} from "../actions";
 import Card from "./Card";
 import Paginado from "./Paginado";
+import styles from './Home.module.css'
 // import  SearchBar  from "../components/SearchBar";
 
 export default function Home () {
@@ -65,7 +66,7 @@ function handleInputName (e){
 
 
 return (
-    <div>
+    <div className={styles.bkg}>
         <Link to = '/recipe'> <button>Create Recipe </button></Link>
 
         <button onClick = {e => handleOnClick(e)}> Refresh Recipes</button>
@@ -111,7 +112,7 @@ return (
                 console.log(e)
 
                 return (
-                    <div> 
+                    <div className={styles.cards}> 
                     <Link to={'/recipes/' + e.id}>
                     <Card title={e.title} img={e.img} 
                     // typeDiet ={e.typeDiet} 

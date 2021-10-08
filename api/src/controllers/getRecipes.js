@@ -2,10 +2,10 @@
 const axios= require('axios');
 const{Recipe,TypeDiet} = require('../db')
 const {Sequelize} = require('sequelize');
-  
+const  API_KEY = '59decad62f064e9baec31b2f82e72077'
 
 const getApiInfo = async () => {
-    const apiUrl = await axios.get('https://api.spoonacular.com/recipes/complexSearch?apiKey=2d0fafd47b274178b7100d9793925962&number=100&addRecipeInformation=true')
+    const apiUrl = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=100&addRecipeInformation=true`)
     //console.log(apiUrl);
      const apiInfo = await apiUrl.data.results.map(e =>{
          return {
@@ -41,7 +41,7 @@ const getDBInfo = async () => {
 const getAllRecipes = async () => {
     const apiInfo = await getApiInfo()
     const dbInfo = await getDBInfo()
-    const allRecipes = apiInfo.concat(dbInfo)
+    const allRecipes = [...apiInfo,...dbInfo]
     console.log(allRecipes);
     return allRecipes
 
@@ -73,9 +73,9 @@ async function getAallRecipes(req, res) {
       try {
         const recipeApiInfo = await getApiInfo()
   
-        const recipeApi = recipeApiInfo.filter((s) =>{
-          if(s.title.toLowerCase().includes(query)){     // si el titulo de la receta que traigo desde la api , incluye el nombre que me pasaron por params 
-            return s                                     // va a retornarlo dentro del array del filter
+        const recipeApi = recipeApiInfo.filter((r) =>{
+          if(r.title.toLowerCase().includes(query)){     // si el titulo de la receta que traigo desde la api , incluye el nombre que me pasaron por params 
+            return r                                     // va a retornarlo dentro del array del filter
           }
          } 
         );
