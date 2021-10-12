@@ -16,7 +16,7 @@ const allRecipes = useSelector((state) => state.recipes )  // es lo mismo que ha
                                                       
 const[search,setSearch] =useState('')                  // este es para el searchBar                                    
 const[orden,setOrden] =useState('')                                             // |             
-const[order,setOrder] =useState('')                                             // |             
+const[order,setOrder] =useState('')                                             //_             
 const[currentPage,setCurrentPage] =useState(1)                                  // |             
 const[recipesPerPage,setrecipesPerPage]=useState(9)                             // |
 const indexLastRecipe = currentPage * recipesPerPage                            // | --> esto es para el paginado
@@ -67,27 +67,40 @@ function handleInputName (e){
 
 return (
     <div className={styles.bkg}>
-        <Link to = '/recipe'> <button>Create Recipe </button></Link>
+    <div className={styles.search}>
+     <form onSubmit={(e) => {handleSubmit(e)}}> {/* este es para hacer enter y que funcione */}
+     
+     <input type='text' placeholder='search...' value={search} onChange={(e) => {handleInputName(e)}} className={styles.input}></input>
+     <button  type='submit' className={styles.btnsearch}>search</button>
+     </form>
 
-        <button onClick = {e => handleOnClick(e)}> Refresh Recipes</button>
+     </div>
+     <div className={styles.filterC}>
+        <Link to = '/recipe'> <button className={styles.create}>Create Recipe </button></Link>
 
-            <div>
-                <select onChange={e => handleSort(e)}>
+        <button onClick = {e => handleOnClick(e)} className={styles.refresh}> Refresh Recipes</button>
+
+                
+                <div className={styles.filt}>
+               
+                <select onChange={e => handleSort(e)} className={styles.select}>
                     <option value="asc">ascendent(A-Z)</option>
                     <option value="des">descendent(Z-A)</option>
                 </select>
-                
-                <select  onChange={e => handlePuntuation(e)}>
+                </div>
+                <div>
+                <select  onChange={e => handlePuntuation(e)} className={styles.select}>
                     <option value="mayormenor">mayor a menor por puntuacion</option>
                     <option value="menormayor">menor a mayor por puntuacion</option>
                 </select>
- 
-                <select onChange={e => handleFilterTypeDiet(e)}>
+                </div>
+                <div>
+                <select onChange={e => handleFilterTypeDiet(e)} className={styles.select}>
                     <option value="All">All recipes</option>
                     <option value="gluten free">Gluten Free</option>
                     <option value="ketogenic">Ketogenic</option>
-                    <option value="vegetarian">Vegetarian (x el momento no hay)</option>
-                    <option value="lacto-vegetarian">Lacto-Vegetarian (x el momento no hay)</option>
+                    <option value="vegetarian">Vegetarian </option>
+                    <option value="lacto-vegetarian">Lacto-Vegetarian </option>
                     <option value="lacto ovo vegetarian">Ovo-Vegetarian</option>
                     <option value="vegan">Vegan</option>
                     <option value="pescatarian">Pescatarian</option>
@@ -95,45 +108,35 @@ return (
                     <option value="primal">Primal</option>
                     <option value="whole 30">Whole 30</option>
                 </select>
-            
-     <div>
-     <form onSubmit={(e) => {handleSubmit(e)}}> {/* este es para hacer enter y que funcione */}
-     <h2>search your recipe</h2>
-     <input type='text' placeholder='search...' value={search} onChange={(e) => {handleInputName(e)}}></input>
-     <button  type='submit'>search</button>
-     </form>
+                </div>
      </div>
-            
+     
+     <div className={styles.paginado}> 
+            <Paginado
+            recipesPerPage = {recipesPerPage}
+            allRecipes = {allRecipes.length}
+            paginado= {paginado}
+            />
+            </div>     
 
-
+        <div className={styles.cards}>
             { 
-            
             currentRecipes?.map( e => {
-                console.log(e)
-
                 return (
-                    <div className={styles.cards}> 
+                    
                     <Link to={'/recipes/' + e.id}>
                     <Card title={e.title} img={e.img} 
                     // typeDiet ={e.typeDiet} 
                     typeDiets={e.typeDiets} 
                     key={e.id}/>
                     </Link>
-                    </div>
                     
-                    )
-                    
-                    
-                })  
-                
+                    )  
+                })      
             }    
-            
-            {/* <input type='text' value='value' placeholder='buscar receta' name=''>seasrchbar</input>          */}
             </div>
-            <Paginado
-            recipesPerPage = {recipesPerPage}
-            allRecipes = {allRecipes.length}
-            paginado= {paginado}/>
+            {/* <input type='text' value='value' placeholder='buscar receta' name=''>seasrchbar</input>          */}
+          
     </div>
 )
 }

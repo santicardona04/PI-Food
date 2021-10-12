@@ -25,13 +25,6 @@ export function filterRecipesByTypeDiet (payload){
     }
 }
 
-// export function filterRecipesByTypeDietinDB (payload){
-//     return {
-//         type : FILTER_BY_TYPEDIET_DB,
-//         payload
-//     }
-// }
-
 export function orderByName (payload){
     return {
         type : ORDER_BY_NAME,

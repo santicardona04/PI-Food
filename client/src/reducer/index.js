@@ -20,9 +20,9 @@ function rootReducer (state=initialState, action) {
 
         case 'FILTER_BY_TYPEDIET':
         const allRec = state.allRecipes
+        // const allRec = state.recipes
         console.log(allRec);
-        // allRec.map(e => {
-        //    if (e.createdInDb){
+        
         const typeDietFilter = action.payload === 'All' ? allRec : allRec.filter(t => t.typeDiets.find(e =>  e.name  === action.payload ) )   
         console.log(action.payload);
         
@@ -83,7 +83,6 @@ function rootReducer (state=initialState, action) {
             return{
                 ...state ,
                 recipes : orderpunt
-
         }
 
         case 'GET_BY_NAME':

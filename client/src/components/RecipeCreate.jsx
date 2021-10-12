@@ -2,7 +2,7 @@ import React, {useEffect , useState} from "react";
 import { Link } from "react-router-dom";
 import {getTypeDiets , postRecipes} from '../actions/index';
 import { useDispatch, useSelector } from "react-redux";
-
+import styles from './RecipeCreate.module.css'
 function controlForm (input){
     const reg = new RegExp('^[0-9]+$');
     let errors = {}
@@ -68,10 +68,11 @@ function handleDelete(e){
 }//    el elemento que le hice click
 
     return (
-        <div>
-            <Link to ='/home'><button>Back to the main page</button></Link>
-            <h1>Create you recipe</h1>
-            <form onSubmit={(e) => {handleSubmit(e)}}>
+        <div className={styles.bkg}>
+        <div className={styles.container}>
+            <Link to ='/home' ><button className={styles.btn}>Back to the main page</button></Link>
+            <h1 className={styles.h1}>Create you recipe</h1>
+            <form onSubmit={(e) => {handleSubmit(e)}} className={styles.form}>
                 <div>
                     <label>name:</label>
                     <input
@@ -81,7 +82,7 @@ function handleDelete(e){
                     onChange={(e) => {handleChange(e)}}
                     />
                     { errors.title && (
-                        <p>{errors.title}</p>
+                        <p className={styles.error}>{errors.title}</p>
                     ) }
                 </div>
                 <div>
@@ -93,7 +94,7 @@ function handleDelete(e){
                     onChange={(e) => {handleChange(e)}} 
                     />
                     { errors.summary && (
-                        <p>{errors.summary}</p>
+                        <p className={styles.error}>{errors.summary}</p>
                     ) }
                 </div>
                 <div>
@@ -105,7 +106,7 @@ function handleDelete(e){
                     onChange={(e) => {handleChange(e)}} 
                     />
                     { errors.spoonacularScore && (
-                        <p>{errors.spoonacularScore}</p>
+                        <p className={styles.error}>{errors.spoonacularScore}</p>
                     ) }
                 </div>
                 <div>
@@ -117,7 +118,7 @@ function handleDelete(e){
                     onChange={(e) => {handleChange(e)}} 
                     />
                      { errors.healthScore && (
-                        <p>{errors.healthScore}</p>
+                        <p className={styles.error}>{errors.healthScore}</p>
                     ) }
                 </div>
                 <div>
@@ -129,7 +130,7 @@ function handleDelete(e){
                     onChange={(e) => {handleChange(e)}} 
                     />
                 </div>
-                <select onChange={(e) => handleSelect(e)} >
+                <select onChange={(e) => handleSelect(e)} className={styles.select} >
                     {listDiets?.map((t) => {
                     
                     return <option value={t}> {t} </option>
@@ -137,18 +138,19 @@ function handleDelete(e){
                     })}
                     
                 </select >
-                {errors.hasOwnProperty('title') || errors.hasOwnProperty('summary') || errors.hasOwnProperty('spoonacularScore') || errors.hasOwnProperty('healthScore')?  <p> please complete all the inputs to create your recipe</p> : <button type='submit' > Create Recipe</button>  }
+                {errors.hasOwnProperty('title') || errors.hasOwnProperty('summary') || errors.hasOwnProperty('spoonacularScore') || errors.hasOwnProperty('healthScore')?  <p className={styles.adv}> please complete all the inputs to create your recipe</p> : <button type='submit' className={styles.correct}> Create Recipe</button>  }
                
             </form>
+            
             {input.typeDiets.map(e => {
                return(
-               <div>
-                  
-                    <h5>{e}</h5>
-                    <button onClick={() => handleDelete(e)}>X</button>
+               <div >
+                    <h5 className={styles.types}>{e}</h5>
+                    <button className={styles.btnx} onClick={() => handleDelete(e)}>X</button>
                    
                 </div>
             )})}
+        </div>
         </div>
     )
 

@@ -2,6 +2,7 @@ const { Router } = require('express');
 const router = Router();
 const {TypeDiet} = require('../db');
 const {diets} = require('../controllers/diets')
+
 router.get('/', async (req,res) => {
     //console.log(diets);
         diets.forEach(e => {

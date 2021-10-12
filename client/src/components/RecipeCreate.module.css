@@ -1,0 +1,126 @@
+.bkg{
+    background-image: url('../icons/home-background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    position:fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content:start;
+    align-items: center;
+    
+}
+.container {
+    display: flex;
+    justify-content:flex-start;
+    justify-content: space-evenly;
+    flex-direction: column;
+    margin-top: 85px;
+}
+
+.error{
+ color: rgb(255, 0, 0);
+ background-color: rgb(246, 223, 223);
+ display: flex;
+ border-radius: 10px;
+ padding: 10px 15px 10px 15px;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    background-color:rgb(212, 212, 158) ;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 4px 4px 10px 10px rgba(0, 0, 0, 0.55);    
+    
+}
+.correct{
+    -webkit-border-radius: 10;
+    -moz-border-radius: 10;
+    border-radius: 10px;
+    font-family: italic;
+    color: #000000;
+    font-size: 17px;
+    background: #e7f7c3;
+    padding: 10px 30px 10px 30px;
+    text-decoration: none;
+
+}
+.correct:hover {
+    background: #e0e055;
+    background-image: -webkit-linear-gradient(top, #f2f2b1, #f3ff99);
+    background-image: -moz-linear-gradient(top, #f2f2b1, #f3ff99);
+    background-image: -ms-linear-gradient(top, #f2f2b1, #f3ff99);
+    background-image: -o-linear-gradient(top, #f2f2b1, #f3ff99);
+    background-image: linear-gradient(to bottom, #f2f2b1, #f3ff99);
+    text-decoration: none;
+    cursor: pointer;
+  }
+.btn {
+    -webkit-border-radius: 10;
+    -moz-border-radius: 10;
+    border-radius: 10px;
+    font-family: italic;
+    color: #000000;
+    font-size: 17px;
+    background: #f7eac3;
+    padding: 10px 30px 10px 30px;
+    text-decoration: none;
+  }
+  
+  .btn:hover {
+    background: #f2f2b1;
+    background-image: -webkit-linear-gradient(top, #f2f2b1, #f3ff99);
+    background-image: -moz-linear-gradient(top, #f2f2b1, #f3ff99);
+    background-image: -ms-linear-gradient(top, #f2f2b1, #f3ff99);
+    background-image: -o-linear-gradient(top, #f2f2b1, #f3ff99);
+    background-image: linear-gradient(to bottom, #f2f2b1, #f3ff99);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .h1{
+    background-color:rgb(218, 146, 146) ;
+    border-radius: 20px;
+    padding: 10px;
+    box-shadow: 4px 4px 10px 10px rgba(0, 0, 0, 0.55);    
+    font-family: italic;
+  }
+
+  .types{
+    background-color:rgb(218, 146, 146) ;
+    border-radius: 5px;
+    padding: 0.8px;
+    box-shadow: 4px 4px 10px 10px rgba(0, 0, 0, 0.55);    
+    font-family: italic;
+    display: inline-block;
+    flex-direction: row;
+  }
+
+  .btnx{
+      background-color: red;
+      color: white;
+  }
+  .tipos{
+      display: flex;
+      flex-direction: row;
+  }
+  .adv{
+    background-color: red;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  .select{
+    background: rgb(186, 216, 156);
+    cursor: pointer;
+    display:inline-block;
+    justify-content: center;
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px;
+    border-style: groove;
+  }

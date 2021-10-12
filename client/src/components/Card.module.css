@@ -2,20 +2,35 @@
     display:inline-block;
     justify-content: center;
     text-align: center;
-    margin-bottom: 5%;
-    margin-left: 6%;
-    margin-right: 4%;
-    max-width: 20%;
+    margin-bottom: 0.5%;
+    margin-left: 0.6%;
+    margin-right: 0.4%;
+    margin-top: 1.7%;
+    /* max-width: 20%; */
     background-color: rgba(245, 245, 245, 0.89);
     box-shadow: 0px 0px 30px 2px #000;
     font-style: italic;
-    margin-top: 2%;
-    padding: 15px;
+    padding: 10px;
 }
-
+.card:hover{
+    cursor: pointer;
+    transform: scale(1.08);
+    transition: all 0.5s;
+}
+.cd{
+    padding: 5px;
+    width: 8cm;
+    height: 11cm;
+}
 .cardimg{
     border-radius: 11px;
 }
-.type{
-    /* word-spacing: 3mm; */
+.tipes{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    margin: 0.25cm;
+    padding: 1px;
+    
 }
